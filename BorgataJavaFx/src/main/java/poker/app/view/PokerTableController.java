@@ -273,6 +273,7 @@ public class PokerTableController {
 		HashMap<String, GameRuleDomainModel> hs = new HashMap();
 		hs = GameRuleBLL.getRuleHashSet();		
 		GameRuleDomainModel gr = hs.get(strRuleName);
+		rle = new Rule(eGame.values()[hs.get(strRuleName).getRULEID()]);
 		
 		
 		
@@ -372,7 +373,13 @@ public class PokerTableController {
 		iDrawCount++;
 		ImageView imView = null;
 		eGameState = eGameState.PlayOfGame;
-
+		String strRuleName = mainApp.getRuleName();
+		HashMap<String, GameRuleDomainModel> hs = new HashMap();
+		hs = GameRuleBLL.getRuleHashSet();		
+		GameRuleDomainModel gr = hs.get(strRuleName);
+		// added this next line to get the rule from the hash set, so needed to get the array of enums to index the correct rule from the integer in the hashset
+		// Then copied this line and the previous 4 lines to handle draw and it works!
+		rle = new Rule(eGame.values()[hs.get(strRuleName).getRULEID()]);
 		// Disable the button in case of double-click
 		SetGameControls(eGameState.DrawingCard);
 
